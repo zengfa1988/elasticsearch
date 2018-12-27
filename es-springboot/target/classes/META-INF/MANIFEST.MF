@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: es-springboot
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Thinkpad
+Implementation-Vendor-Id: com.zengfa.study.es
+Build-Jdk: 1.8.0_191
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/es-springboot
+Created-By: Maven Integration for Eclipse
+
