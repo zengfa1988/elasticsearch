@@ -108,10 +108,18 @@ public class ResourceRepositoryTest {
 	}
 	
 	@Test
+	public void testFindByTypen() {
+		List<Resource> list = resourceRepository.findByType("blog2");
+		for(Resource r : list) {
+			System.out.println(JSONObject.toJSONString(r));
+		}
+	}
+	
+	@Test
 	public void testFindByReadNumberBetween() {
-//		List<Resource> list = resourceRepository.findByReadNumberBetween(900, 1200);
-//		for(Resource r : list) {
-//			System.out.println(JSONObject.toJSONString(r));
-//		}
+		List<Resource> list = resourceRepository.findByReadNumberBetween(900, 1200);
+		for(Resource r : list) {
+			System.out.println(JSONObject.toJSONString(r));
+		}
 	}
 }

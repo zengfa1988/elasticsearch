@@ -15,7 +15,7 @@ public class ESTemplateTest {
     private ElasticsearchTemplate esTemplate;
 	
 	@Test
-	public void test() {
+	public void testIndexExists() {
 		boolean result = esTemplate.indexExists("resource");
 		System.out.println(result);
 	}
