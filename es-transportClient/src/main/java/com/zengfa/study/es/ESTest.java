@@ -72,7 +72,7 @@ public class ESTest {
 		Settings settings = Settings.builder().put("cluster.name", "my-es").build();
 		//2.创建client
 		TransportClient client = new PreBuiltTransportClient(settings);
-		String host = "192.168.0.106";
+		String host = "192.168.0.119";
 		TransportAddress transportAddress = new TransportAddress(InetAddress.getByName(host), 9300);
 		client.addTransportAddress(transportAddress);
 		
@@ -84,7 +84,7 @@ public class ESTest {
 		Settings settings = Settings.builder().put("cluster.name", "my-es").build();
 		//2.创建client
 		client = new PreBuiltTransportClient(settings);
-		String host = "192.168.0.112";
+		String host = "192.168.0.119";
 		TransportAddress transportAddress = new TransportAddress(InetAddress.getByName(host), 9300);
 		client.addTransportAddress(transportAddress);
 	}
