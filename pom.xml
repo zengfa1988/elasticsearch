@@ -9,6 +9,7 @@
 	<modules>
 		<module>es-transportClient</module>
 		<module>es-springboot</module>
+		<module>es-jest</module>
 	</modules>
 	<dependencies>		
 
