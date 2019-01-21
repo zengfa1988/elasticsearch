@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import io.searchbox.client.JestClient;
@@ -20,6 +22,8 @@ import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.client.config.HttpClientConfig.Builder;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.BulkResult;
+import io.searchbox.core.Cat;
+import io.searchbox.core.Cat.IndicesBuilder;
 import io.searchbox.core.Count;
 import io.searchbox.core.CountResult;
 import io.searchbox.core.Delete;
@@ -32,6 +36,7 @@ import io.searchbox.core.Update;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.IndicesExists;
+import io.searchbox.indices.Stats;
 import io.searchbox.indices.mapping.PutMapping;
 import io.searchbox.strings.StringUtils;
 
@@ -45,7 +50,7 @@ import io.searchbox.strings.StringUtils;
 public class JestTest {
 
 	private static JestClient jestClient;
-	private static String elasticIps = "http://192.168.0.110:9200/";
+	private static String elasticIps = "http://192.168.0.112:9200/";
 	private static String userName;
 	private static String password;
 	
@@ -63,7 +68,8 @@ public class JestTest {
 //			deleteDoc();
 //			searchDoc();
 //			rangeQuery();
-			count();
+//			count();
+			listIndices();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,6 +137,25 @@ public class JestTest {
 		IndicesExists indicesExists = new IndicesExists.Builder(index).build();
 		JestResult jestResult = jestClient.execute(indicesExists);
 		System.out.println(jestResult.isSucceeded());
+	}
+	
+	/**
+	 * 列出所有索引
+	 * @throws Exception
+	 */
+	public static void listIndices() throws Exception{
+		Cat cat = new IndicesBuilder().build();
+		JestResult jestResult = jestClient.execute(cat);
+		if(jestResult.isSucceeded()) {
+			String indiceStr = jestResult.getSourceAsString();
+			List<Map> mapList = JSONArray.parseArray(indiceStr, Map.class);
+			for(Map indexMap : mapList) {
+//				System.out.println(JSONObject.toJSONString(indexMap));
+				String indexName = (String)indexMap.get("index");
+				System.out.println(indexName);
+			}
+//			System.out.println(JSONArray.toJSONString(mapList));
+		}
 	}
 	
 	/**
