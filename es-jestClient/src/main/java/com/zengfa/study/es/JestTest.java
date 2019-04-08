@@ -32,6 +32,8 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.SearchResult.Hit;
+import io.searchbox.core.SqlSearch;
+import io.searchbox.core.SqlSearchResult;
 import io.searchbox.core.Update;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
@@ -304,6 +306,21 @@ public class JestTest {
         
         Double counts = results.getCount();
         System.out.println("Count:" + counts);  
+	}
+	
+	/**
+	 * sql查询
+	 * @throws Exception
+	 */
+	private static void sqlQuery() throws Exception{
+		String sql = "select * from resource";
+		SqlSearch query = new SqlSearch.Builder(sql).build();
+		SqlSearchResult result = jestClient.execute(query);
+		if(result.isSucceeded()) {
+			List<Map<String,Object>> dataList = result.getData();
+		}else {
+			System.out.println(result.getErrorMessage());
+		}
 	}
 	
 }
